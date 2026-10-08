@@ -63,6 +63,7 @@ export async function GET(req: Request) {
         .all(),
     ]);
     return json({
+      session: { mode: u.mode },
       profile,
       observations: own.results.map((r) => serialize(r, true)),
       feed: feed.results.map((r: any) => serialize(r, r.user_id === u.userId)),

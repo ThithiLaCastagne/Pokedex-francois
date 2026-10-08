@@ -4359,3 +4359,6 @@ small {
 .sidebar-note p {
   color: #6b7c60;
 }
+
+.guest-note { padding: 14px 16px; border-radius: 10px; background: #edf1e4; color: #385b42; font-size: 14px; line-height: 1.65; }
+.guest-note strong { display: block; margin-bottom: 3px; }

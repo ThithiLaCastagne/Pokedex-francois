@@ -21,3 +21,11 @@ WebMCP est exposé si le navigateur prend en charge `document.modelContext`. Le 
 Le contrôle TypeScript et la compilation de production sont exécutés par le workflow avant la création de la version hébergée. Les migrations livrées ne contiennent que le schéma. Aucun contenu de démonstration ni profil de test n’est inséré en production.
 
 Il reste à réaliser une recette sur téléphones iOS/Android physiques, un parcours communautaire avec deux comptes ChatGPT réels autorisés, et une revue indépendante avant une ouverture large. Voir `PRODUCT.md` pour les limites et la roadmap.
+
+## Mode test sans inscription
+
+Ajout du 8 octobre 2026 : ouverture automatique d’un carnet par navigateur, session HttpOnly et expiration serveur, sans redirection de connexion. Les comptes déjà identifiés restent séparés et reconnus. L’audience du site est ouverte à la demande explicite du propriétaire.
+
+`python tests/run-api.py` : **56 assertions réussies** sur le Worker compilé (30 existantes et 26 consacrées aux invités). Les nouveaux tests utilisent deux cookies de navigateur distincts : ouverture, persistance, upload et sauvegarde, isolation, invitations, partage, commentaires, révocation, refus des faux jetons, protection contre les requêtes provenant d’un autre site et séparation avec un compte existant.
+
+Recette dans le navigateur de développement : ouverture directe de l’application en « Mode test · sans inscription », accès immédiat au formulaire d’ajout et au profil invité sans connexion. Le message de conservation sur le même navigateur est affiché dans le profil. Aucun contournement d’identité n’est embarqué ; chaque carnet conserve ses vérifications serveur.

@@ -7,7 +7,8 @@ try:
   try:urllib.request.urlopen('http://127.0.0.1:8791/',timeout=1);break
   except Exception:time.sleep(.5)
  else:raise RuntimeError(pathlib.Path('/tmp/faune-worker-test.log').read_text()[-2000:])
- subprocess.run(['python',str(root/'tests/api-integration.py')],cwd=root,check=True)
+ for script in ['api-integration.py','guest-integration.py']:
+  subprocess.run(['python',str(root/'tests'/script)],cwd=root,check=True)
 finally:
  import signal
  os.killpg(p.pid,signal.SIGTERM)

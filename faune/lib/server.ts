@@ -1,5 +1,6 @@
 import { env } from "cloudflare:workers";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
+import { headers } from "next/headers";
 import { z } from "zod";
 import { sensitiveSpecies } from "./species";
 import type { Species } from "./types";
@@ -20,11 +21,46 @@ export function json(data: unknown, status = 200) {
     },
   });
 }
+export const GUEST_COOKIE = "faune_guest";
+export const GUEST_LIFETIME = 180 * 24 * 60 * 60;
+export async function hashGuestToken(token: string) {
+  const bytes = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(token),
+  );
+  return Array.from(new Uint8Array(bytes), (b) =>
+    b.toString(16).padStart(2, "0"),
+  ).join("");
+}
 export async function identity() {
   const u = await getChatGPTUser();
-  if (!u)
-    throw new ApiError("Connectez-vous pour accéder à votre carnet.", 401);
-  return u;
+  if (u) return { ...u, mode: "account" as const };
+  const cookie = (await headers()).get("cookie") || "";
+  const token = cookie
+    .split(";")
+    .map((v) => v.trim())
+    .find((v) => v.startsWith(GUEST_COOKIE + "="))
+    ?.slice(GUEST_COOKIE.length + 1);
+  if (token && /^[a-f0-9]{64}$/.test(token)) {
+    const session = await db()
+      .prepare(
+        "SELECT user_id FROM guest_sessions WHERE token_hash=? AND expires>?",
+      )
+      .bind(await hashGuestToken(token), Math.floor(Date.now() / 1000))
+      .first<{ user_id: string }>();
+    if (session)
+      return {
+        userId: session.user_id,
+        displayName: "Explorateur",
+        fullName: "Explorateur",
+        email: "",
+        mode: "guest" as const,
+      };
+  }
+  throw new ApiError(
+    "Le carnet n’est pas encore ouvert. Autorisez les cookies de ce site et réessayez.",
+    401,
+  );
 }
 export class ApiError extends Error {
   constructor(

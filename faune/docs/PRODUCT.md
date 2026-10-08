@@ -4,7 +4,7 @@ Application neuve, indépendante du Pokédex précédent. Interface française r
 
 ## Parcours livrés
 
-- Compte personnel via la connexion ChatGPT de l’hébergement ; stockage D1 des observations, stockage R2 privé des images.
+- Mode test sans inscription : session de navigateur créée automatiquement, carnet individuel en D1 et photos privées en R2. Les comptes ChatGPT déjà connectés restent reconnus.
 - Ajout et correction d’observations avec une à cinq photos, prise de vue via le navigateur, date/heure, région, notes, géolocalisation facultative.
 - Images converties en JPEG, redimensionnées à 1 800 pixels maximum ; suppression des métadonnées côté navigateur et des segments EXIF/XMP/IPTC/commentaires côté serveur.
 - Six fiches naturalistes embarquées, recherche taxonomique GBIF, saisie manuelle de n’importe quelle espèce, modification des données éducatives, résumé Wikipédia à la demande.
@@ -22,7 +22,7 @@ Le statut de conservation n’est pas une copie complète et synchronisée de la
 
 Les photos originales ne sont pas archivées sans transformation. Les JPEG enregistrés sont les versions optimisées, dépourvues de métadonnées. L’export JSON ne contient pas leurs octets. Il n’y a pas de mode hors ligne d’écriture ni d’application App Store/Google Play.
 
-L’hébergement est privé pour le propriétaire à la livraison. Les proches doivent être autorisés à visiter le site pour rejoindre le cercle. L’activation d’une audience plus large est une décision d’accès distincte. Une connexion ChatGPT est nécessaire avec cet hébergement.
+À la demande du propriétaire, le site est accessible publiquement pour les tests, sans connexion. Chaque navigateur reçoit son propre carnet invité. La session dure 180 jours et n’est pas récupérable après suppression des cookies ou changement de navigateur. Le code d’invitation permet seulement de demander une relation. Les photos personnelles ne sont pas rendues publiques. Le passage d’un carnet invité à un compte définitif reste à prévoir.
 
 Les flux sont limités à 200 publications récentes, le carnet à 2 000 observations chargées et les uploads à 3 000 photos par compte. L’application ne revendique ni un audit de sécurité indépendant, ni une conformité juridique certifiée, ni une validation en charge à grande échelle.
 
@@ -32,7 +32,7 @@ React 19 / TypeScript / Vinext, composants Shadcn, Tailwind et CSS dédié. Work
 
 Cette application nécessite un serveur : GitHub conserve le code, mais GitHub Pages seul ne fournit pas D1/R2 ni l’authentification serveur. Le dossier `faune/` dans la branche GitHub est autonome. Le projet Sites utilise le même code dans sa propre racine.
 
-L’authentification repose exclusivement sur les en-têtes de confiance injectés par Sites. Pour migrer hors de Sites, remplacer `app/chatgpt-auth.ts` par un fournisseur de sessions vérifiées ; ne jamais exposer un serveur acceptant directement des en-têtes d’identité fournis par les visiteurs.
+Les comptes existants utilisent les en-têtes de confiance injectés par Sites. Les invités utilisent un cookie HttpOnly dont le secret de 256 bits n’est conservé en base que sous forme de SHA-256, avec expiration. Pour migrer hors de Sites, remplacer `app/chatgpt-auth.ts` par un fournisseur de sessions vérifiées ; ne jamais exposer un serveur acceptant directement des en-têtes d’identité fournis par les visiteurs.
 
 ## Option no-code
 
@@ -41,7 +41,7 @@ Pour une expérimentation sans développement : une interface FlutterFlow avec u
 ## Roadmap de lancement en six étapes
 
 1. Tester le carnet personnel avec ses propres photos et corriger les dernières frictions métier.
-2. Autoriser un petit groupe de proches, vérifier leurs connexions réelles et les invitations sur leurs appareils.
+2. Faire tester le lien sans inscription à quelques proches et vérifier les invitations sur leurs appareils ; préparer la récupération et le transfert des carnets lors du retour des comptes.
 3. Brancher une reconnaissance IA choisie et budgétée, avec consentement pour l’envoi des images, suggestions corrigibles et tests sur espèces proches.
 4. Étendre les données éducatives : sources datées, statuts UICN/territoriaux et politique actualisable des espèces sensibles.
 5. Préparer l’ouverture : suppression complète de compte, export complet avec photos, sauvegardes/restauration, politique de confidentialité, quotas, limitation d’abus et modération.

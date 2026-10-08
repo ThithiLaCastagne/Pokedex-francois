@@ -76,12 +76,16 @@ export default function ObservationForm({
   onSave,
   editing,
   authenticated,
+  loading,
+  onRetry,
 }: {
   open: boolean;
   onClose: () => void;
   onSave: () => void;
   editing: Observation | null;
   authenticated: boolean;
+  loading: boolean;
+  onRetry: () => void;
 }) {
   const [step, setStep] = useState(0),
     [photos, setPhotos] = useState<Photo[]>([]),
@@ -296,18 +300,22 @@ export default function ObservationForm({
         {!authenticated ? (
           <div className="auth-prompt">
             <ShieldCheck size={38} />
-            <h3>Un espace rien qu’à vous</h3>
+            <h3>
+              {loading
+                ? "Ouverture de votre carnet…"
+                : "Le carnet n’a pas pu s’ouvrir"}
+            </h3>
             <p>
-              Connectez-vous pour conserver vos photos, retrouver votre
-              collection et partager avec vos proches.
+              Aucune inscription nécessaire. Vos rencontres seront conservées
+              dans votre espace personnel sur ce navigateur.
             </p>
-            <a
-              className="btn primary"
-              href="/signin-with-chatgpt?return_to=%2F%3Fnew%3D1"
-              target="_top"
-            >
-              Connecter mon carnet
-            </a>
+            {loading ? (
+              <Spinner />
+            ) : (
+              <button className="btn primary" onClick={onRetry}>
+                Réessayer
+              </button>
+            )}
           </div>
         ) : (
           <>

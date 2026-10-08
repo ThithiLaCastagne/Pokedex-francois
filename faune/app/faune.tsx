@@ -104,6 +104,22 @@ const clean = (s: string) =>
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
+let openingGuest: Promise<void> | null = null;
+function openGuestNotebook() {
+  if (!openingGuest)
+    openingGuest = (async () => {
+      const response = await fetch("/api/guest", { method: "POST" });
+      if (!response.ok) {
+        const result: any = await response.json();
+        throw new Error(
+          result.error || "Impossible d’ouvrir le carnet. Réessayez.",
+        );
+      }
+    })().finally(() => {
+      openingGuest = null;
+    });
+  return openingGuest;
+}
 export default function Faune() {
   const [page, setPage] = useState("collection"),
     [data, setData] = useState<(AppData & { requests: any[] }) | null>(null),
@@ -133,10 +149,10 @@ export default function Faune() {
     [profileTab, setProfileTab] = useState("profile");
   const load = useCallback(async (initial = false) => {
     try {
-      const r = await fetch("/api/data");
+      let r = await fetch("/api/data");
       if (r.status === 401) {
-        setLoaded(true);
-        return;
+        await openGuestNotebook();
+        r = await fetch("/api/data");
       }
       const d: any = await r.json();
       if (!r.ok) throw new Error(d.error);
@@ -475,7 +491,11 @@ export default function Faune() {
             <span>
               <strong>{data?.profile.name || "Votre carnet"}</strong>
               <small>
-                {data ? "Un regard sur le vivant" : "Prêt à explorer"}
+                {data?.session.mode === "guest"
+                  ? "Mode test · sans compte"
+                  : data
+                    ? "Un regard sur le vivant"
+                    : "Ouverture du carnet…"}
               </small>
             </span>
             <Settings size={16} />
@@ -499,7 +519,9 @@ export default function Faune() {
           <div className="topbar-right">
             <span className="private-label">
               <ShieldCheck size={15} />
-              Un carnet, en confiance
+              {data?.session.mode === "guest"
+                ? "Mode test · sans inscription"
+                : "Un carnet, en confiance"}
             </span>
             <button
               className="topbar-profile avatar"
@@ -1196,6 +1218,8 @@ export default function Faune() {
       <ObservationForm
         open={form}
         authenticated={!!data}
+        loading={!loaded}
+        onRetry={() => void load()}
         editing={editing}
         onClose={() => setForm(false)}
         onSave={() => {
@@ -1296,24 +1320,26 @@ export default function Faune() {
                 </button>
               </form>
               <p className="small-note">
-                Le code ne donne pas accès à vos photos. Les comptes doivent
-                avoir accès à l’application pour se retrouver.
+                Votre proche ouvre le lien et vous envoie une demande, sans
+                inscription. Le code seul ne donne pas accès à vos photos.
               </p>
             </>
           ) : (
             <div className="auth-prompt">
               <Users size={34} />
-              <p>Connectez-vous pour créer votre cercle.</p>
-              <a
-                className="btn primary"
-                href={
-                  "/signin-with-chatgpt?return_to=" +
-                  encodeURIComponent("/?invite=" + friendCode + "#circle")
-                }
-                target="_top"
-              >
-                Connecter mon carnet
-              </a>
+              <p>
+                {loaded
+                  ? "Le carnet n’a pas pu s’ouvrir."
+                  : "Ouverture de votre carnet…"}
+              </p>
+              <p className="small-note">Aucune inscription nécessaire.</p>
+              {loaded ? (
+                <button className="btn primary" onClick={() => void load()}>
+                  Réessayer
+                </button>
+              ) : (
+                <Spinner />
+              )}
             </div>
           )}
         </DialogContent>
@@ -1328,6 +1354,14 @@ export default function Faune() {
           </DialogHeader>
           {data ? (
             <>
+              {data.session.mode === "guest" && (
+                <p className="guest-note">
+                  <strong>Mode test, sans compte.</strong> Revenez avec ce
+                  navigateur pour retrouver votre carnet. L’accès dure six mois
+                  ; effacer les cookies ou utiliser la navigation privée peut
+                  vous le faire perdre. Pensez à exporter vos observations.
+                </p>
+              )}
               <Tabs value={profileTab} onValueChange={setProfileTab}>
                 <TabsList>
                   <TabsTrigger value="profile">Profil</TabsTrigger>
@@ -1405,26 +1439,33 @@ export default function Faune() {
                   </button>
                 </div>
               )}
-              <a
-                href="/signout-with-chatgpt?return_to=%2F"
-                target="_top"
-                className="text-button"
-              >
-                <LogOut size={16} />
-                Me déconnecter
-              </a>
+              {data.session.mode === "account" && (
+                <a
+                  href="/signout-with-chatgpt?return_to=%2F"
+                  target="_top"
+                  className="text-button"
+                >
+                  <LogOut size={16} />
+                  Me déconnecter
+                </a>
+              )}
             </>
           ) : (
             <div className="auth-prompt">
               <Lock size={30} />
-              <p>Un carnet personnel, protégé par votre compte.</p>
-              <a
-                className="btn primary"
-                href="/signin-with-chatgpt?return_to=%2F"
-                target="_top"
-              >
-                Connecter mon carnet
-              </a>
+              <p>
+                {loaded
+                  ? "Le carnet n’a pas pu s’ouvrir."
+                  : "Ouverture de votre carnet…"}
+              </p>
+              <p className="small-note">Aucune inscription nécessaire.</p>
+              {loaded ? (
+                <button className="btn primary" onClick={() => void load()}>
+                  Réessayer
+                </button>
+              ) : (
+                <Spinner />
+              )}
             </div>
           )}
         </DialogContent>

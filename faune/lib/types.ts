@@ -49,6 +49,7 @@ export type Observation = {
 export type Profile = { id: string; name: string; bio: string; code: string };
 export type Friend = { id: string; name: string; bio: string };
 export type AppData = {
+  session: { mode: "guest" | "account" };
   profile: Profile;
   observations: Observation[];
   feed: Observation[];

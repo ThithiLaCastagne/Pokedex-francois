@@ -13,6 +13,18 @@ export const profiles = sqliteTable("profiles", {
   code: text("code").notNull().unique(),
   created: text("created").notNull(),
 });
+export const guestSessions = sqliteTable(
+  "guest_sessions",
+  {
+    tokenHash: text("token_hash").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => profiles.id),
+    expires: integer("expires").notNull(),
+    created: text("created").notNull(),
+  },
+  (t) => [index("idx_guest_sessions_expires").on(t.expires)],
+);
 export const observations = sqliteTable(
   "observations",
   {
