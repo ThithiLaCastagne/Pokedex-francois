@@ -1,0 +1,56 @@
+{
+  "fox": {
+    "author": "Malene Thyssen",
+    "url": "https://commons.wikimedia.org/wiki/File:R%C3%B8d_r%C3%A6v_(Vulpes_vulpes).jpg",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+    "note": "Photographed in Skandinavisk Dyrepark, Denmark. Exact European red fox; primary preferred to North American fox alternative.",
+    "references": ["https://animaldiversity.org/accounts/Vulpes_vulpes/"]
+  },
+  "kingfisher": {
+    "author": "Frank-2.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Eisvogel_kingfisher.jpg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "",
+    "references": ["https://animaldiversity.org/accounts/Alcedo_atthis/"]
+  },
+  "deer": {
+    "author": "Luc Viatour / https://Lucnix.be",
+    "url": "https://commons.wikimedia.org/wiki/File:Cervus_elaphus_Luc_Viatour_3.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "note": "Requested attribution near image. Bellowing stag with two does in Freyr forest, Belgium.",
+    "references": [
+      "https://www.woodlandtrust.org.uk/trees-woods-and-wildlife/animals/mammals/red-deer/",
+      "https://inpn.mnhn.fr/explorer/especes/cervus_elaphus_elaphus/61002"
+    ]
+  },
+  "lynx": {
+    "author": "Wilfredor",
+    "url": "https://commons.wikimedia.org/wiki/File:Portrait_of_a_Carpathian_Lynx.jpg",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "Carpathian lynx, Lynx lynx carpathicus, photographed at Alpenzoo Innsbruck. Do not imply wild capture.",
+    "references": ["https://animaldiversity.org/accounts/Lynx_lynx/"]
+  },
+  "robin": {
+    "author": "Joefrei",
+    "url": "https://commons.wikimedia.org/wiki/File:Rotkehlchenportrait_aus_ca._1_Meter_Entfernung.jpg",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "note": "",
+    "references": [
+      "https://animaldiversity.org/accounts/Erithacus_rubecula/classification/",
+      "https://www.woodlandtrust.org.uk/trees-woods-and-wildlife/animals/birds/robin/"
+    ]
+  },
+  "squirrel": {
+    "author": "Darkone",
+    "url": "https://commons.wikimedia.org/wiki/File:Red_squirrel_(Sciurus_vulgaris).jpg",
+    "license": "CC BY-SA 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "note": "",
+    "references": ["https://animaldiversity.org/accounts/Sciurus_vulgaris/"]
+  }
+}

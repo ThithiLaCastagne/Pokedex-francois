@@ -1,0 +1,192 @@
+import type { Species, Observation } from "./types";
+const base = {
+  kingdom: "Animalia",
+  phylum: "Chordata",
+  status: "À vérifier",
+  sensitive: false,
+};
+export const SPECIES: Species[] = [
+  {
+    ...base,
+    id: "fox",
+    status: "LC",
+    statusScope: "Monde",
+    statusYear: "2021",
+    statusSource:
+      "https://doi.org/10.2305/IUCN.UK.2021-1.RLTS.T23062A193903628.en",
+    name: "Renard roux",
+    scientific: "Vulpes vulpes",
+    group: "Mammifères",
+    className: "Mammalia",
+    order: "Carnivora",
+    family: "Canidae",
+    genus: "Vulpes",
+    habitat: "Forêts, bocages, prairies et milieux urbains.",
+    diet: "Omnivore : petits mammifères, invertébrés, fruits et autres ressources saisonnières.",
+    range: "Grande partie de l’hémisphère Nord ; introduit en Australie.",
+    summary:
+      "Discret et adaptable, le renard roux explore surtout son territoire au crépuscule et la nuit. Son ouïe très fine l’aide à repérer de petits rongeurs sous la végétation.",
+    wiki: "Renard roux",
+    photo: "/images/fox.webp",
+  },
+  {
+    ...base,
+    id: "kingfisher",
+    status: "LC",
+    statusScope: "Monde",
+    statusYear: "2024",
+    statusSource:
+      "https://doi.org/10.2305/IUCN.UK.2024-2.RLTS.T22683027A264589271.en",
+    name: "Martin-pêcheur d’Europe",
+    scientific: "Alcedo atthis",
+    group: "Oiseaux",
+    className: "Aves",
+    order: "Coraciiformes",
+    family: "Alcedinidae",
+    genus: "Alcedo",
+    habitat: "Cours d’eau, étangs et berges où il peut se percher.",
+    diet: "Principalement de petits poissons, parfois des invertébrés aquatiques.",
+    range: "Europe, Afrique du Nord et une grande partie de l’Asie.",
+    summary:
+      "Un éclair bleu au ras de l’eau. Le martin-pêcheur plonge depuis un perchoir pour capturer sa nourriture. Ses berges de nidification sont particulièrement sensibles au dérangement.",
+    wiki: "Martin-pêcheur d'Europe",
+    photo: "/images/kingfisher.webp",
+  },
+  {
+    ...base,
+    id: "deer",
+    status: "LC",
+    statusScope: "Monde",
+    statusYear: "2018",
+    statusSource:
+      "https://doi.org/10.2305/IUCN.UK.2018-2.RLTS.T55997072A142404453.en",
+    name: "Cerf élaphe",
+    scientific: "Cervus elaphus",
+    group: "Mammifères",
+    className: "Mammalia",
+    order: "Artiodactyla",
+    family: "Cervidae",
+    genus: "Cervus",
+    habitat: "Massifs forestiers, clairières, landes et prairies.",
+    diet: "Herbivore : herbes, feuilles, jeunes pousses et écorces.",
+    range:
+      "Europe, Afrique du Nord et parties de l’Asie, selon les classifications.",
+    summary:
+      "Le cerf élaphe est un grand herbivore. Chez le mâle, les bois tombent et repoussent chaque année. À la période du brame, rester à distance permet de préserver la tranquillité des animaux.",
+    wiki: "Cerf élaphe",
+    photo: "/images/deer.webp",
+  },
+  {
+    ...base,
+    id: "lynx",
+    status: "LC",
+    statusScope: "Monde",
+    statusYear: "2020",
+    statusSource:
+      "https://doi.org/10.2305/IUCN.UK.2020-3.RLTS.T12519A177350310.en",
+    name: "Lynx boréal",
+    scientific: "Lynx lynx",
+    group: "Mammifères",
+    className: "Mammalia",
+    order: "Carnivora",
+    family: "Felidae",
+    genus: "Lynx",
+    sensitive: true,
+    habitat: "Forêts étendues, souvent dans des reliefs rocheux.",
+    diet: "Carnivore : principalement des ongulés de petite ou moyenne taille, et de plus petites proies.",
+    range: "Populations dispersées en Europe et large répartition en Asie.",
+    summary:
+      "Reconnaissable à ses oreilles en pinceaux, le lynx est un félin solitaire et discret. Sa situation locale peut être fragile même lorsque le statut mondial ne reflète pas cette fragilité.",
+    wiki: "Lynx boréal",
+    photo: "/images/lynx.webp",
+  },
+  {
+    ...base,
+    id: "robin",
+    status: "LC",
+    statusScope: "Monde",
+    statusYear: "2018",
+    statusSource:
+      "https://doi.org/10.2305/IUCN.UK.2018-2.RLTS.T22709675A131953953.en",
+    name: "Rougegorge familier",
+    scientific: "Erithacus rubecula",
+    group: "Oiseaux",
+    className: "Aves",
+    order: "Passeriformes",
+    family: "Muscicapidae",
+    genus: "Erithacus",
+    habitat: "Sous-bois, haies, parcs et jardins.",
+    diet: "Invertébrés, complétés par des baies et des fruits.",
+    range: "Europe, Afrique du Nord et ouest de l’Asie.",
+    summary:
+      "Sa poitrine orangée et son chant sont familiers des jardins. Le rougegorge défend son territoire et cherche souvent sa nourriture au sol, dans la litière de feuilles.",
+    wiki: "Rougegorge familier",
+    photo: "/images/robin.webp",
+  },
+  {
+    ...base,
+    id: "squirrel",
+    name: "Écureuil roux",
+    scientific: "Sciurus vulgaris",
+    group: "Mammifères",
+    className: "Mammalia",
+    order: "Rodentia",
+    family: "Sciuridae",
+    genus: "Sciurus",
+    habitat: "Forêts de conifères ou de feuillus, parcs boisés.",
+    diet: "Graines, fruits à coque, bourgeons et champignons.",
+    range: "Europe et Asie du Nord.",
+    summary:
+      "Acrobate des arbres, l’écureuil roux utilise sa longue queue pour garder l’équilibre. Il disperse une partie des graines en oubliant certaines de ses réserves.",
+    wiki: "Écureuil roux",
+    photo: "/images/squirrel.webp",
+  },
+];
+export const DEMO: Observation[] = SPECIES.map((s, i) => ({
+  id: "demo-" + s.id,
+  species: s,
+  photos: [s.photo!],
+  date: [
+    "2026-09-28T07:40",
+    "2026-09-24T09:15",
+    "2026-09-21T18:30",
+    "2026-09-15T06:30",
+    "2026-09-12T08:10",
+    "2026-09-08T10:20",
+  ][i],
+  region: ["Pyrénées", "Camargue", "Pyrénées", "Jura", "Jura", "Pyrénées"][i],
+  notes: [
+    "Une rencontre au petit matin, à la lisière. Je suis resté immobile pour le laisser poursuivre son chemin.",
+    "Quelques secondes sur une branche, puis un plongeon. Observé de loin aux jumelles.",
+    "À l’orée du bois, dans la lumière du soir.",
+    "Observation illustrative. La localisation de cette espèce reste masquée.",
+    "Un chant au milieu des feuilles, tout près du sentier.",
+    "Il transportait une noisette entre deux branches.",
+  ][i],
+  visibility: "private",
+  sensitive: s.sensitive,
+  lat: s.sensitive ? null : [43, 43.5, 43, null, 46.5, 43][i],
+  lng: s.sensitive ? null : [0.5, 4.5, 0.5, null, 6, 0.5][i],
+  favorite: i === 0,
+  created: "2026-10-01T12:00:00Z",
+  demo: true,
+}));
+export const statusName: Record<string, string> = {
+  LC: "Préoccupation mineure",
+  NT: "Quasi menacée",
+  VU: "Vulnérable",
+  EN: "En danger",
+  CR: "En danger critique",
+  DD: "Données insuffisantes",
+  NE: "Non évaluée",
+  "À vérifier": "Statut à vérifier",
+};
+export function sensitiveSpecies(s: Species) {
+  return (
+    s.sensitive ||
+    ["VU", "EN", "CR"].includes(s.status) ||
+    /lynx|panthera|rhinoceros|diceros|loxodonta|elephas|gorilla|pongo/i.test(
+      s.scientific,
+    )
+  );
+}
