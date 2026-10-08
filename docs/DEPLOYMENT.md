@@ -1,57 +1,52 @@
-# Déploiement de Pokédex de la faune
+# Déployer faune.
 
-L’application est un site statique construit avec Vite. Les observations et les
-photos personnelles restent dans le navigateur de l’utilisateur. Ce déploiement
-ne nécessite ni base de données distante ni clé secrète. Le navigateur conserve
-les données pour une origine donnée : exporter une sauvegarde avant de changer
-d’adresse, de navigateur ou d’appareil.
+## GitHub Pages existant
 
-## Vérifier et compiler
+L’adresse du projet reste `https://thithilacastagne.github.io/Pokedex-francois/`. Le site statique ne nécessite aucune clé pour le carnet, l’album, la progression et le partage par lien.
 
-Avec Node.js 24 et npm :
+Le workflow **Publier faune.** compile et publie les changements de `main`. Dans **Settings → Pages**, la source doit être **GitHub Actions**. Attendre la réussite du job `deploy` avant de considérer une version comme publiée. Une branche de travail ou une pull request ne modifie pas le site public.
+
+Le workflow **Vérification de l’application** exécute les essais sur les branches et les pull requests. Attendre son succès avant d’intégrer une modification. Il conserve le site compilé et les résultats d’audit pendant sept jours.
+
+## Avant publication
+
+Avec Node.js 24 :
 
 ```sh
 npm ci
 npm test
+npm run test:db
 npm run build
+npx playwright install chromium
+npm run test:browser
+npm run test:a11y
+npm run test:cloud
+npm run format:check
 ```
 
-Le dossier `dist/` contient le site prêt à héberger. La configuration Vite utilise
-des chemins relatifs pour permettre un hébergement à la racine ou sous le chemin
-du dépôt. Le workflow GitHub `Vérification de l’application` teste et compile
-chaque push et conserve ce dossier comme artefact téléchargeable.
+Le dossier `dist/` est prêt à héberger sous un chemin de projet ou à la racine. Les scripts de test utilisent leur propre serveur.
 
-## GitHub Pages
+## Activation facultative du réseau privé
 
-Après intégration du code dans GitHub, un administrateur peut activer Pages dans
-**Settings → Pages → Build and deployment → Source → GitHub Actions**. Le workflow
-`Publier Pokédex de la faune` vérifie puis publie `dist/` à chaque push sur `main`.
-Il peut aussi être lancé dans **Actions → Publier Pokédex de la faune → Run workflow**
-après l’activation de Pages. Ses permissions `pages: write` et `id-token: write`
-sont limitées au job de déploiement, associé à l’environnement `github-pages`.
+Le workflow de publication lit deux **variables de dépôt** dans **Settings → Secrets and variables → Actions → Variables** :
 
-L’activation initiale de Pages exige un accès administrateur au dépôt. Le jeton
-automatique `GITHUB_TOKEN` d’un workflow ne peut pas l’effectuer : le paramètre
-`enablement` de l’[action officielle configure-pages](https://github.com/actions/configure-pages/blob/v5/action.yml)
-exige un autre jeton doté des permissions adéquates. Le workflow fourni utilise
-donc le jeton automatique pour publier sur un site déjà activé, sans demander de
-secret supplémentaire.
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
 
-L’adresse publique et l’état de publication sont affichés par GitHub Pages.
-Un chemin d’hébergement prévisible n’est pas une preuve que le site est publié :
-attendre un déploiement réussi et ouvrir l’adresse annoncée avant de la partager.
+Ce sont des paramètres publics de client, intégrés à la compilation. Ne jamais fournir une clé secrète ni `service_role`. Le schéma et les politiques d’accès doivent être installés avant d’activer le client. Suivre [CIRCLES_SETUP.md](CIRCLES_SETUP.md).
 
-## Autre hébergeur statique
+Après modification des variables, lancer **Actions → Publier faune. → Run workflow** sur `main`. Sans ces variables, le réseau connecté est clairement indiqué comme non activé ; le partage par lien reste disponible.
 
-Netlify, Cloudflare Pages et Vercel peuvent également importer ce dépôt GitHub.
-Utiliser Node.js 24, la commande de compilation `npm run build` et le dossier de
-sortie `dist`. Aucun fichier `.env` n’est nécessaire pour cette version locale.
-L’hébergeur fournit l’URL HTTPS après le premier déploiement réussi.
+## Données conservées et mise à jour
 
-## Ce qui dépend d’une connexion Internet
+La version 2 conserve le nom de base `pokedex-faune-private-v1`, le magasin `observations` et les sauvegardes version 1. Aucun effacement ou réimport n’est nécessaire à adresse identique. Le profil, les envies et les collections reçues sont stockés séparément dans le navigateur.
 
-Les photos personnelles et le carnet fonctionnent localement après chargement
-de l’application. Les images d’exemple sont livrées avec le site. La première
-installation PWA, les fonds de carte, les liens vers les sources et les recherches
-de fiches en ligne demandent une connexion Internet. Les observations locales
-restent consultables lorsqu’un service externe est indisponible.
+Une bannière propose d’appliquer les nouvelles versions. Le service worker garde aussi le cache de la génération précédente pour les onglets encore ouverts. Il ne supprime pas les données du carnet. Une sauvegarde régulière protège contre l’effacement ou l’éviction du stockage par le navigateur.
+
+Un changement de domaine, de profil de navigateur ou d’appareil exige un export puis un import du carnet. Le fond de carte, les sources et le cercle connecté demandent Internet. Le carnet et les fiches sont disponibles hors ligne une fois le cache installé.
+
+## Retour arrière
+
+Revenir sur le commit de publication avec un nouveau commit `git revert`, puis laisser GitHub Pages republier. Ne pas réécrire l’historique et ne pas effacer les données du navigateur. La version précédente peut encore lire le carnet puisque son format est conservé.
+
+Pour désactiver seulement le cercle connecté, retirer ses deux variables de dépôt et relancer la publication. Cela ne supprime pas les données du projet Supabase. Une migration SQL ne doit pas être annulée en supprimant des tables contenant des données sans sauvegarde ni décision explicite de l’administrateur.

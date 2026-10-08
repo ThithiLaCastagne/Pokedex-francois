@@ -1,5 +1,6 @@
 export type ConservationStatus = 'LC' | 'NT' | 'VU' | 'EN' | 'CR' | 'DD' | 'NE'
-export type TaxonomicRank = 'Règne' | 'Embranchement' | 'Classe' | 'Ordre' | 'Famille' | 'Genre' | 'Espèce' | 'Sous-espèce'
+export type TaxonomicRank =
+  'Règne' | 'Embranchement' | 'Classe' | 'Ordre' | 'Famille' | 'Genre' | 'Espèce' | 'Sous-espèce'
 export interface Species {
   id: string
   name: string

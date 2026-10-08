@@ -1,4 +1,4 @@
-name: Publier Pokédex de la faune
+name: Publier faune.
 
 on:
   push:
@@ -30,8 +30,13 @@ jobs:
         run: npm ci
       - name: Tester les règles de données
         run: npm test
+      - name: Vérifier les autorisations des cercles
+        run: npm run test:db
       - name: Compiler l’application
         run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
       - name: Lire la configuration Pages
         uses: actions/configure-pages@v5
       - name: Préparer les fichiers à publier
@@ -52,3 +57,4 @@ jobs:
       - name: Publier le site
         id: deployment
         uses: actions/deploy-pages@v4
+
