@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-label="Illustration stylisée de dragonfly">
+ <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#c3d8c9"/><stop offset="1" stop-color="#eee8d3"/></linearGradient><linearGradient id="ground" x2="0" y2="1"><stop stop-color="#385447"/><stop offset="1" stop-color="#244b3d"/></linearGradient></defs>
+ <rect width="1000" height="700" fill="url(#sky)"/><circle cx="760" cy="169" r="82" fill="#f8edca" opacity=".8"/>
+ <path d="M0 405 Q153 311 312 371 Q484 317 653 361 Q871 291 1000 357 L1000 700 0 700Z" fill="#385447" opacity=".25"/>
+ <path d="M0 475 Q255 377 470 451 Q726 369 1000 422 L1000 700 0 700Z" fill="url(#ground)"/>
+ <g transform="translate(37 40) scale(1.16)" fill="#233f35" color="#233f35"><g fill="#d4e0d0" stroke="#668879" stroke-width="3"><path d="M492 305 Q332 206 255 249 Q299 322 483 323Z"/><path d="M490 325 Q327 311 271 361 Q352 400 482 342Z"/><path d="M502 305 Q662 206 739 249 Q695 322 511 323Z"/><path d="M504 325 Q666 311 723 361 Q643 400 512 342Z"/></g><path d="M496 265 496 420" stroke="#39747c" stroke-width="17" stroke-linecap="round"/><ellipse cx="496" cy="290" rx="20" ry="29" fill="#527560"/><circle cx="483" cy="263" r="10"/><circle cx="509" cy="263" r="10"/><path d="M489 303 465 294 M503 303 527 294 M489 320 461 321 M503 320 531 321 M489 338 463 353 M503 338 529 353" fill="none" stroke="currentColor" stroke-width="3"/></g>
+ <g stroke="#d2ddb8" opacity=".45" fill="none" stroke-width="3"><path d="M87 638 80 576 M84 609 54 588 M84 618 106 593 M905 614 907 559 M908 590 925 570 M907 581 888 564"/></g>
+ <text x="38" y="662" fill="#ebeddb" font-size="16" font-family="sans-serif" letter-spacing="3">ILLUSTRATION NATURALISTE</text>
+</svg>

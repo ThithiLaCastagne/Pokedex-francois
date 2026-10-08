@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-label="Illustration stylisée de cheetah">
+ <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#d6dfc4"/><stop offset="1" stop-color="#eee8d3"/></linearGradient><linearGradient id="ground" x2="0" y2="1"><stop stop-color="#567157"/><stop offset="1" stop-color="#244b3d"/></linearGradient></defs>
+ <rect width="1000" height="700" fill="url(#sky)"/><circle cx="760" cy="169" r="82" fill="#f8edca" opacity=".8"/>
+ <path d="M0 405 Q153 311 312 371 Q484 317 653 361 Q871 291 1000 357 L1000 700 0 700Z" fill="#567157" opacity=".25"/>
+ <path d="M0 475 Q255 377 470 451 Q726 369 1000 422 L1000 700 0 700Z" fill="url(#ground)"/>
+ <g transform="translate(37 40) scale(1.16)" fill="#233f35" color="#233f35"><path d="M260 405 Q250 343 300 321 Q364 294 429 300 L546 297 Q585 235 635 241 L664 214 680 250 Q712 268 704 309 L685 337 643 348 629 450 601 450 590 361 397 366 375 450 345 450 348 357 306 366 294 435 264 435Z"/><path d="M290 334 Q224 304 211 344 Q188 421 136 394" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round"/><circle cx="679" cy="281" r="5" fill="#f2e7cc"/><g fill="#dac297" opacity=".8"><circle cx="380" cy="332" r="4"/><circle cx="420" cy="325" r="4"/><circle cx="458" cy="338" r="4"/><circle cx="493" cy="322" r="4"/><circle cx="533" cy="333" r="4"/><circle cx="575" cy="320" r="4"/></g></g>
+ <g stroke="#d2ddb8" opacity=".45" fill="none" stroke-width="3"><path d="M87 638 80 576 M84 609 54 588 M84 618 106 593 M905 614 907 559 M908 590 925 570 M907 581 888 564"/></g>
+ <text x="38" y="662" fill="#ebeddb" font-size="16" font-family="sans-serif" letter-spacing="3">ILLUSTRATION NATURALISTE</text>
+</svg>

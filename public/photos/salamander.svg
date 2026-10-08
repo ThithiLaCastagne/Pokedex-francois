@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-label="Illustration stylisée de salamander">
+ <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#d6dfc4"/><stop offset="1" stop-color="#eee8d3"/></linearGradient><linearGradient id="ground" x2="0" y2="1"><stop stop-color="#567157"/><stop offset="1" stop-color="#244b3d"/></linearGradient></defs>
+ <rect width="1000" height="700" fill="url(#sky)"/><circle cx="760" cy="169" r="82" fill="#f8edca" opacity=".8"/>
+ <path d="M0 405 Q153 311 312 371 Q484 317 653 361 Q871 291 1000 357 L1000 700 0 700Z" fill="#567157" opacity=".25"/>
+ <path d="M0 475 Q255 377 470 451 Q726 369 1000 422 L1000 700 0 700Z" fill="url(#ground)"/>
+ <g transform="translate(37 40) scale(1.16)" fill="#233f35" color="#233f35"><path d="M236 390 Q306 298 415 318 Q477 330 550 301 Q587 282 621 308 Q651 333 622 350 Q586 362 548 340 Q483 375 406 357 Q319 332 236 390Z"/><path d="M417 333 435 282 473 270 M428 352 445 404 475 414 M524 323 501 278 477 275 M523 350 529 396 559 419" fill="none" stroke="currentColor" stroke-width="17" stroke-linecap="round"/><g fill="#e9c357"><ellipse cx="396" cy="333" rx="17" ry="9"/><ellipse cx="466" cy="343" rx="12" ry="8"/><ellipse cx="538" cy="319" rx="14" ry="8"/><circle cx="590" cy="319" r="8"/></g><circle cx="619" cy="321" r="4" fill="#f2e7cc"/></g>
+ <g stroke="#d2ddb8" opacity=".45" fill="none" stroke-width="3"><path d="M87 638 80 576 M84 609 54 588 M84 618 106 593 M905 614 907 559 M908 590 925 570 M907 581 888 564"/></g>
+ <text x="38" y="662" fill="#ebeddb" font-size="16" font-family="sans-serif" letter-spacing="3">ILLUSTRATION NATURALISTE</text>
+</svg>

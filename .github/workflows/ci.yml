@@ -1,0 +1,32 @@
+name: Vérification de l’application
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Préparer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Installer les dépendances verrouillées
+        run: npm ci
+      - name: Tester les règles de données
+        run: npm test
+      - name: Compiler l’application
+        run: npm run build
+      - name: Conserver la version compilée
+        uses: actions/upload-artifact@v4
+        with:
+          name: faune-web
+          path: dist/
+          retention-days: 7

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-label="Illustration stylisée de flamingo">
+ <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#e6d5c5"/><stop offset="1" stop-color="#eee8d3"/></linearGradient><linearGradient id="ground" x2="0" y2="1"><stop stop-color="#84635c"/><stop offset="1" stop-color="#244b3d"/></linearGradient></defs>
+ <rect width="1000" height="700" fill="url(#sky)"/><circle cx="760" cy="169" r="82" fill="#f8edca" opacity=".8"/>
+ <path d="M0 405 Q153 311 312 371 Q484 317 653 361 Q871 291 1000 357 L1000 700 0 700Z" fill="#84635c" opacity=".25"/>
+ <path d="M0 475 Q255 377 470 451 Q726 369 1000 422 L1000 700 0 700Z" fill="url(#ground)"/>
+ <g transform="translate(37 40) scale(1.16)" fill="#233f35" color="#233f35"><ellipse cx="428" cy="320" rx="97" ry="47" fill="#d59c8d"/><path d="M508 314 Q566 321 566 270 Q566 238 537 228 Q507 214 527 182 Q544 155 576 171" fill="none" stroke="#d59c8d" stroke-width="23" stroke-linecap="round"/><path d="M568 167 Q596 160 613 189 L605 211 589 188 569 187Z"/><path d="M409 354 417 457 M466 357 468 416 506 445 479 451 M398 458 437 458" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/><circle cx="579" cy="177" r="4" fill="#f2e7cc"/></g>
+ <g stroke="#d2ddb8" opacity=".45" fill="none" stroke-width="3"><path d="M87 638 80 576 M84 609 54 588 M84 618 106 593 M905 614 907 559 M908 590 925 570 M907 581 888 564"/></g>
+ <text x="38" y="662" fill="#ebeddb" font-size="16" font-family="sans-serif" letter-spacing="3">ILLUSTRATION NATURALISTE</text>
+</svg>

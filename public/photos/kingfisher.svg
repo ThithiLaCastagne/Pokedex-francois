@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-label="Illustration stylisée de kingfisher">
+ <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#cbdccf"/><stop offset="1" stop-color="#eee8d3"/></linearGradient><linearGradient id="ground" x2="0" y2="1"><stop stop-color="#3d6f60"/><stop offset="1" stop-color="#244b3d"/></linearGradient></defs>
+ <rect width="1000" height="700" fill="url(#sky)"/><circle cx="760" cy="169" r="82" fill="#f8edca" opacity=".8"/>
+ <path d="M0 405 Q153 311 312 371 Q484 317 653 361 Q871 291 1000 357 L1000 700 0 700Z" fill="#3d6f60" opacity=".25"/>
+ <path d="M0 475 Q255 377 470 451 Q726 369 1000 422 L1000 700 0 700Z" fill="url(#ground)"/>
+ <g transform="translate(37 40) scale(1.16)" fill="#233f35" color="#233f35"><path d="M375 401 Q354 354 373 298 Q398 250 449 249 Q489 245 517 270 L593 285 514 294 Q504 340 468 369 L424 406Z" fill="#377985"/><path d="M419 318 Q458 298 499 309 L471 358 424 379Z" fill="#ce8b54"/><path d="M407 361 339 417 365 422 444 386Z"/><path d="M447 378 451 425 M424 393 415 425 M287 431 674 431" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/><circle cx="483" cy="276" r="6" fill="#f2e7cc"/></g>
+ <g stroke="#d2ddb8" opacity=".45" fill="none" stroke-width="3"><path d="M87 638 80 576 M84 609 54 588 M84 618 106 593 M905 614 907 559 M908 590 925 570 M907 581 888 564"/></g>
+ <text x="38" y="662" fill="#ebeddb" font-size="16" font-family="sans-serif" letter-spacing="3">ILLUSTRATION NATURALISTE</text>
+</svg>
