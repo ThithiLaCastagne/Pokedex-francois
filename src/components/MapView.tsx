@@ -18,7 +18,9 @@ interface RegionGroup {
 
 function formatDate(date: string) {
   const parsed = new Date(`${date}T12:00:00`)
-  return Number.isNaN(parsed.getTime()) ? 'Date non renseignée' : parsed.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })
+  return Number.isNaN(parsed.getTime())
+    ? 'Date non renseignée'
+    : parsed.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
 export default function MapView({ observations, onSelectObservation }: MapViewProps) {
@@ -29,7 +31,7 @@ export default function MapView({ observations, onSelectObservation }: MapViewPr
   const [tileFailed, setTileFailed] = useState(false)
 
   const { groups, withoutRegion } = useMemo(() => {
-    const regionById = new Map(regions.map(region => [region.id, region]))
+    const regionById = new Map(regions.map((region) => [region.id, region]))
     const byRegion = new Map<string, RegionGroup>()
     const unlocated: Observation[] = []
     for (const observation of observations) {
@@ -42,18 +44,26 @@ export default function MapView({ observations, onSelectObservation }: MapViewPr
       byRegion.get(region.id)!.observations.push(observation)
     }
     return {
-      groups: [...byRegion.values()].sort((left, right) => right.observations.length - left.observations.length || left.region.name.localeCompare(right.region.name, 'fr')),
+      groups: [...byRegion.values()].sort(
+        (left, right) =>
+          right.observations.length - left.observations.length ||
+          left.region.name.localeCompare(right.region.name, 'fr'),
+      ),
       withoutRegion: unlocated,
     }
   }, [observations])
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return
-    const map = L.map(containerRef.current, { scrollWheelZoom: false, minZoom: 2, maxZoom: 8 }).setView([18, 7], 2)
+    const map = L.map(containerRef.current, { scrollWheelZoom: false, minZoom: 2, maxZoom: 8 }).setView(
+      [18, 7],
+      2,
+    )
     mapRef.current = map
     markerLayerRef.current = L.layerGroup().addTo(map)
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors',
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors',
       maxZoom: 19,
     }).addTo(map)
     tiles.on('tileerror', () => setTileFailed(true))
@@ -91,50 +101,149 @@ export default function MapView({ observations, onSelectObservation }: MapViewPr
       marker.addTo(layer)
     }
     if (groups.length === 1) map.setView([groups[0].region.latitude, groups[0].region.longitude], 4)
-    else if (groups.length > 1) map.fitBounds(L.latLngBounds(groups.map(group => [group.region.latitude, group.region.longitude] as [number, number])), { padding: [45, 45], maxZoom: 4 })
+    else if (groups.length > 1)
+      map.fitBounds(
+        L.latLngBounds(
+          groups.map((group) => [group.region.latitude, group.region.longitude] as [number, number]),
+        ),
+        { padding: [45, 45], maxZoom: 4 },
+      )
     else map.setView([18, 7], 2)
-    return () => { layer.clearLayers() }
+    return () => {
+      layer.clearLayers()
+    }
   }, [groups])
 
-  const selectedGroup = groups.find(group => group.region.id === selectedRegionId)
-  const showUnlocated = (selectedRegionId === '__unlocated' && withoutRegion.length > 0) || (!groups.length && withoutRegion.length > 0)
-  const visibleObservations = showUnlocated ? withoutRegion : (selectedGroup ?? groups[0])?.observations ?? []
+  const selectedGroup = groups.find((group) => group.region.id === selectedRegionId)
+  const showUnlocated =
+    (selectedRegionId === '__unlocated' && withoutRegion.length > 0) ||
+    (!groups.length && withoutRegion.length > 0)
+  const visibleObservations = showUnlocated
+    ? withoutRegion
+    : ((selectedGroup ?? groups[0])?.observations ?? [])
   const effectiveRegionId = showUnlocated ? '__unlocated' : (selectedGroup ?? groups[0])?.region.id
   const selectedName = showUnlocated ? 'Sans région renseignée' : (selectedGroup ?? groups[0])?.region.name
 
   return (
     <section className="map-view">
-      <div className="map-notice"><ShieldCheck size={20} aria-hidden="true" /><p><strong>Une carte qui protège le vivant.</strong> Les points indiquent le centre approximatif des régions, jamais le lieu exact d’une rencontre. Le fond de carte provient d’OpenStreetMap.</p></div>
+      <div className="map-notice">
+        <ShieldCheck size={20} aria-hidden="true" />
+        <p>
+          <strong>Une carte qui protège le vivant.</strong> Les points indiquent le centre approximatif des
+          régions, jamais le lieu exact d’une rencontre. Le fond de carte provient d’OpenStreetMap.
+        </p>
+      </div>
       <div className="map-layout">
         <div className="map-panel">
-          <div ref={containerRef} className="map-canvas" aria-label="Carte des observations regroupées par centre approximatif de région" />
-          <div className="map-caption"><MapPin size={14} aria-hidden="true" /><span>{groups.length} région{groups.length > 1 ? 's' : ''} · positions approximatives</span></div>
-          {tileFailed && <p className="map-tile-error" role="status">Le fond de carte est momentanément indisponible. Vos observations restent accessibles dans la liste.</p>}
+          <div
+            ref={containerRef}
+            className="map-canvas"
+            aria-label="Carte des observations regroupées par centre approximatif de région"
+          />
+          <div className="map-caption">
+            <MapPin size={14} aria-hidden="true" />
+            <span>
+              {groups.length} région{groups.length > 1 ? 's' : ''} · positions approximatives
+            </span>
+          </div>
+          {tileFailed && (
+            <p className="map-tile-error" role="status">
+              Le fond de carte est momentanément indisponible. Vos observations restent accessibles dans la
+              liste.
+            </p>
+          )}
         </div>
         <aside className="map-sidebar" aria-label="Observations par région">
-          <div className="map-sidebar-heading"><h3>Vos horizons</h3><span>{observations.length} rencontre{observations.length > 1 ? 's' : ''}</span></div>
+          <div className="map-sidebar-heading">
+            <h3>Vos horizons</h3>
+            <span>
+              {observations.length} rencontre{observations.length > 1 ? 's' : ''}
+            </span>
+          </div>
           <div className="map-region-list">
-            {groups.map(group => (
-              <button type="button" key={group.region.id} className={`map-region-row ${effectiveRegionId === group.region.id ? 'active' : ''}`} aria-pressed={effectiveRegionId === group.region.id} onClick={() => { setSelectedRegionId(group.region.id); mapRef.current?.setView([group.region.latitude, group.region.longitude], 4) }}>
-                <MapPin size={16} aria-hidden="true" /><span><strong>{group.region.name}</strong><small>{group.region.continent} · centre approximatif</small></span><b>{group.observations.length}</b>
+            {groups.map((group) => (
+              <button
+                type="button"
+                key={group.region.id}
+                className={`map-region-row ${effectiveRegionId === group.region.id ? 'active' : ''}`}
+                aria-pressed={effectiveRegionId === group.region.id}
+                onClick={() => {
+                  setSelectedRegionId(group.region.id)
+                  mapRef.current?.setView([group.region.latitude, group.region.longitude], 4)
+                }}
+              >
+                <MapPin size={16} aria-hidden="true" />
+                <span>
+                  <strong>{group.region.name}</strong>
+                  <small>{group.region.continent} · centre approximatif</small>
+                </span>
+                <b>{group.observations.length}</b>
               </button>
             ))}
-            {withoutRegion.length > 0 && <button type="button" className={`map-region-row ${showUnlocated ? 'active' : ''}`} aria-pressed={showUnlocated} onClick={() => setSelectedRegionId('__unlocated')}><MapPin size={16} aria-hidden="true" /><span><strong>Sans région renseignée</strong><small>Ces rencontres restent hors de la carte</small></span><b>{withoutRegion.length}</b></button>}
+            {withoutRegion.length > 0 && (
+              <button
+                type="button"
+                className={`map-region-row ${showUnlocated ? 'active' : ''}`}
+                aria-pressed={showUnlocated}
+                onClick={() => setSelectedRegionId('__unlocated')}
+              >
+                <MapPin size={16} aria-hidden="true" />
+                <span>
+                  <strong>Sans région renseignée</strong>
+                  <small>Ces rencontres restent hors de la carte</small>
+                </span>
+                <b>{withoutRegion.length}</b>
+              </button>
+            )}
           </div>
           {selectedName && <h4 className="map-observation-heading">{selectedName}</h4>}
           <div className="map-observation-list">
-            {[...visibleObservations].sort((left, right) => right.date.localeCompare(left.date)).map(observation => {
-              const item = observationSpecies(observation)
-              const photo = observation.photos[0] || item?.cover
-              return (
-                <button type="button" className="map-observation-card" key={observation.id} onClick={() => onSelectObservation(observation)}>
-                  {photo ? <img src={photo} alt={item ? `Observation de ${item.name}` : 'Photo de la rencontre'} loading="lazy" onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = './animal-fallback.svg' }} /> : <span className="map-photo-placeholder"><MapPin size={22} /></span>}
-                  <span><strong>{item?.name ?? 'Espèce à identifier'}</strong><small><CalendarDays size={12} aria-hidden="true" />{formatDate(observation.date)}</small></span><ArrowUpRight size={17} aria-hidden="true" />
-                </button>
-              )
-            })}
+            {[...visibleObservations]
+              .sort((left, right) => right.date.localeCompare(left.date))
+              .map((observation) => {
+                const item = observationSpecies(observation)
+                const photo = observation.photos[0] || item?.cover
+                return (
+                  <button
+                    type="button"
+                    className="map-observation-card"
+                    key={observation.id}
+                    onClick={() => onSelectObservation(observation)}
+                  >
+                    {photo ? (
+                      <img
+                        src={photo}
+                        alt={item ? `Observation de ${item.name}` : 'Photo de la rencontre'}
+                        loading="lazy"
+                        onError={(event) => {
+                          event.currentTarget.onerror = null
+                          event.currentTarget.src = './animal-fallback.svg'
+                        }}
+                      />
+                    ) : (
+                      <span className="map-photo-placeholder">
+                        <MapPin size={22} />
+                      </span>
+                    )}
+                    <span>
+                      <strong>{item?.name ?? 'Espèce à identifier'}</strong>
+                      <small>
+                        <CalendarDays size={12} aria-hidden="true" />
+                        {formatDate(observation.date)}
+                      </small>
+                    </span>
+                    <ArrowUpRight size={17} aria-hidden="true" />
+                  </button>
+                )
+              })}
           </div>
-          {observations.length === 0 && <div className="map-empty empty-state"><MapPin size={32} aria-hidden="true" /><h3>Votre prochaine rencontre commence ici</h3><p>Ajoutez une observation et choisissez une région pour commencer votre carte personnelle.</p></div>}
+          {observations.length === 0 && (
+            <div className="map-empty empty-state">
+              <MapPin size={32} aria-hidden="true" />
+              <h3>Votre prochaine rencontre commence ici</h3>
+              <p>Ajoutez une observation et choisissez une région pour commencer votre carte personnelle.</p>
+            </div>
+          )}
         </aside>
       </div>
     </section>

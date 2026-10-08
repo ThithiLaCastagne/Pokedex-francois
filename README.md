@@ -1,31 +1,45 @@
-# Pokédex de la faune
+# faune. — Votre carnet du vivant
 
-Une application web et mobile installable pour conserver ses rencontres animales, apprendre à connaître les espèces et observer sans déranger. Interface française, responsive et utilisable sans compte.
+Un carnet de rencontres animales, un album à compléter et une façon de partager ses découvertes avec ses proches. Application française, installable, adaptée au téléphone et utilisable sans compte.
 
-## Fonctionnalités
+**[Ouvrir l’application](https://thithilacastagne.github.io/Pokedex-francois/)**
 
-- Photos personnelles : import JPEG/PNG/WebP, appareil photo mobile, galerie et suppression des métadonnées GPS.
-- Observations : date, région facultative, notes, favoris, modification et suppression confirmée.
-- 18 fiches éducatives avec habitat, alimentation, répartition, taxonomie et sources Wikipédia, GBIF, iNaturalist et UICN.
-- Identification libre de toute autre espèce, informations éducatives personnelles et huit rangs taxonomiques facultatifs.
-- Recherche sans accents, filtres par groupe animal/région/date/statut, arbre taxonomique et chronologie.
-- Carte OpenStreetMap avec centres régionaux seulement : aucune coordonnée d’observation précise enregistrée.
-- Sauvegarde JSON complète avec photos et restauration sans doublons.
-- PWA installable et carnet disponible hors ligne après une première visite réussie. Le fond de carte nécessite Internet.
+![Le nouveau carnet sur ordinateur](docs/previews/desktop.png)
 
-Les exemples de découverte sont clairement signalés et ne sont jamais ajoutés au carnet personnel.
+[Aperçu sur téléphone](docs/previews/mobile.png) · [Album des espèces](docs/previews/album.png) · [Collections de proches](docs/previews/circle.png)
 
-## Confidentialité et limites
+## La version 2
 
-Les données sont enregistrées dans **IndexedDB sur cet appareil et ce navigateur**. Aucun compte, serveur de photos, outil publicitaire ou service d’identification IA ne reçoit les observations. Il n’y a pas encore de synchronisation entre appareils. Exportez une sauvegarde avant de changer d’appareil, d’adresse du site ou d’effacer les données du navigateur. La sauvegarde JSON contient des données personnelles et n’est pas chiffrée.
+- **Carnet** : ajout avec ou sans photo, identification libre, notes, favoris, vues grille/liste/chronologie, recherche sans accents et filtres combinables.
+- **Explorer** : album de 18 espèces documentées, espèces rencontrées ou à découvrir, liste d’envies, carte régionale et arbre taxonomique. Les espèces identifiées librement comptent aussi dans la collection.
+- **Progression** : statistiques personnelles, huit badges, calendrier de douze semaines et objectif hebdomadaire ajustable. Les exemples ne gonflent jamais les compteurs.
+- **Collections de proches** : lien de partage, aperçu avant envoi, comparaison des espèces, enregistrement d’une collection reçue et carte PNG à télécharger. Cela fonctionne immédiatement, sans serveur de comptes.
+- **Cercle connecté, en option** : petits groupes sur invitation, publications choisies, photos facultatives, encouragements, commentaires et modération. Nécessite de relier un projet Supabase : [guide d’activation](docs/CIRCLES_SETUP.md).
+- **Votre espace** : pseudonyme, couleurs, sauvegarde/restauration, installation et réglages de conservation locale.
+- **Hors ligne** : carnet et fiches disponibles après installation du cache ; mise à jour explicite sans effacer les observations.
 
-Le stockage local n’est pas un écran d’authentification : toute personne ayant accès au même profil de navigateur peut consulter le carnet. Les liens vers les sources et les tuiles OpenStreetMap utilisent des services externes, sans transmettre les photos personnelles.
+## Partager avec ses proches
 
-Les photos sont réencodées à 1 800 pixels maximum et cinq photos par observation. Les originaux sur l’appareil restent inchangés. Limites : 15 Mo par fichier importé, 100 Mo pour le carnet local. Les fichiers HEIC doivent être convertis en JPEG avant l’import.
+1. Dans **Votre espace**, choisir un pseudonyme.
+2. Ajouter ses vraies observations au **Carnet**.
+3. Ouvrir **Cercle → Partager ma collection**, vérifier l’aperçu, puis partager ou copier le lien.
+4. Le destinataire ouvre le lien et peut conserver cette collection dans ses proches, sans importer les observations dans son carnet.
 
-Les textes sont des synthèses éducatives originales. Les statuts ne sont pas des évaluations UICN en temps réel ; leurs réserves figurent dans les fiches. Les identifications manuelles restent à vérifier. Les illustrations et leurs crédits sont documentés dans [public/photos/CREDITS.md](public/photos/CREDITS.md).
+Le lien est un **instantané**, pas une synchronisation. Il contient uniquement le pseudonyme, une couleur, un identifiant de collection, une date de mise à jour, les compteurs et les identifiants des espèces du guide. Les notes, photos, lieux, dates d’observation et noms des espèces ajoutées librement en sont exclus. Toute personne possédant le lien peut le lire et le transférer ; il n’est ni chiffré ni révocable. Envoyer un nouveau lien pour actualiser sa collection.
 
-## Développement
+## Données et confidentialité
+
+Le carnet reste dans **IndexedDB, sur cet appareil et ce navigateur**. La version 2 conserve la base existante et le format de sauvegarde version 1. Il n’y a pas de synchronisation automatique des carnets entre appareils. Exporter une sauvegarde avant de changer de navigateur, d’appareil ou d’adresse, ou de supprimer les données du site.
+
+La sauvegarde JSON inclut observations et photos, mais pas le profil, les envies ni les collections reçues. Elle n’est pas chiffrée. Toute personne ayant accès au même profil de navigateur peut consulter le carnet.
+
+Le cercle connecté transmet seulement ce que l’utilisateur choisit de publier, ainsi que les données nécessaires au compte et à l’appartenance au cercle. Les notes, régions et dates d’observation ne sont pas copiées dans les publications. Une photo personnelle nécessite une sélection explicite. Les membres peuvent enregistrer ou transférer ce qu’ils voient. Supprimer une observation locale ne retire pas une publication déjà envoyée au cercle.
+
+Photos locales : JPEG/PNG/WebP, 15 Mo par import, cinq photos par observation, réencodage à 1 800 pixels maximum sans métadonnées GPS. Les originaux restent inchangés. Le carnet est limité à 100 Mo. Convertir les fichiers HEIC avant import. Les photos partagées au cercle sont réduites à 720 pixels maximum.
+
+Les coordonnées précises ne sont jamais conservées : la géolocalisation facultative suggère une grande région. Le fond de carte et les liens documentaires contactent des services externes. Les fiches sont éducatives, les identifications manuelles restent à vérifier et les statuts de conservation ne sont pas actualisés en temps réel. [Crédits des illustrations](public/photos/CREDITS.md).
+
+## Développer
 
 Prérequis : Node.js 24 et npm.
 
@@ -34,32 +48,43 @@ npm ci
 npm run dev
 ```
 
-Dans l’environnement Codex, utiliser `npm ci --cache /tmp/faune-npm-cache` si le répertoire de cache npm personnel n’est pas accessible. Aucun secret ou fichier `.env` n’est nécessaire.
+Aucun fichier `.env` n’est nécessaire pour le carnet et le partage par lien. Pour le cercle connecté, suivre [CIRCLES_SETUP.md](docs/CIRCLES_SETUP.md). Ne jamais placer une clé secrète ou `service_role` dans une variable `VITE_*`.
 
-## Vérification
+## Vérifier
 
 ```sh
 npm test
+npm run test:db
 npm run build
-npm run preview
-```
-
-Le build génère `dist/` et un service worker avec les fichiers réels précachés. Les chemins sont relatifs pour permettre une publication dans un sous-répertoire, notamment GitHub Pages.
-
-Les tests navigateur couvrent l’ajout, l’édition, les favoris, le nettoyage GPS, l’identification manuelle, la classification, le rechargement, la suppression, les sauvegardes et le parcours mobile :
-
-```sh
 npx playwright install chromium
-# Démarrer npm run dev dans un autre terminal, puis :
 npm run test:browser
+npm run test:a11y
+npm run test:cloud
+npm run format:check
 ```
 
-Le script utilise `/usr/bin/chromium` lorsqu’il est disponible. `TEST_URL` permet de tester une autre adresse et `CHROMIUM_PATH` un autre Chromium.
+Les scripts démarrent leur propre serveur de test sous `/Pokedex-francois/`. Aucun serveur de développement n’est requis. `CHROMIUM_PATH` et `CHROMIUM_ARGS` permettent d’utiliser un Chromium spécifique. Le test cloud emploie un projet fictif et intercepte ses requêtes : il n’envoie aucun email et ne publie rien sur un vrai service.
 
-## Publication
+[Périmètre des vérifications et limites](docs/VERIFICATION.md).
 
-La CI vérifie les tests et le build. Le workflow GitHub Pages publie `dist/` lors des pushs sur `main`, lorsque Pages utilise la source **GitHub Actions**. Voir [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+## Publier et maintenir
 
-## Structure
+La CI vérifie le code, les règles PostgreSQL, les parcours navigateur et l’accessibilité automatisée. GitHub Pages publie la branche `main`. La compilation produit `dist/` avec chemins relatifs et cache hors ligne versionné.
 
-`src/App.tsx` orchestre les vues ; `src/components/` contient formulaire, fiches, arbre et carte ; `src/storage.ts` conserve et valide le carnet ; `src/data.ts` contient les fiches et les régions ; `scripts/build-sw.mjs` construit le cache hors ligne.
+- [Déploiement et retour arrière](docs/DEPLOYMENT.md)
+- [Activation des cercles privés](docs/CIRCLES_SETUP.md)
+- [Nouveautés pour les utilisateurs](docs/RELEASE-v2.md)
+
+## Repères dans le code
+
+| Emplacement                                   | Rôle                                                 |
+| --------------------------------------------- | ---------------------------------------------------- |
+| `src/App.tsx`                                 | Navigation et orchestration des vues                 |
+| `src/components/`                             | Carnet, album, progression, partage et cercle        |
+| `src/storage.ts`                              | Validation, photos, sauvegardes et IndexedDB         |
+| `src/collection.ts`                           | Déduplication des espèces, statistiques et badges    |
+| `src/sharing.ts`                              | Format strict des liens et comparaisons              |
+| `src/cloud.ts`                                | Accès au service facultatif des cercles              |
+| `supabase/migrations/001_private_circles.sql` | Schéma, droits, invitations et isolation des cercles |
+| `src/data.ts`                                 | Fiches et régions                                    |
+| `scripts/`                                    | Cache hors ligne et essais reproductibles            |

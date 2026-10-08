@@ -22,11 +22,32 @@ jobs:
         run: npm ci
       - name: Tester les règles de données
         run: npm test
+      - name: Vérifier les autorisations des cercles
+        run: npm run test:db
+      - name: Vérifier le format du code
+        run: npm run format:check
       - name: Compiler l’application
         run: npm run build
+      - name: Installer Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Vérifier les parcours, le partage et le hors ligne
+        run: npm run test:browser
+      - name: Auditer l’accessibilité
+        run: npm run test:a11y
+      - name: Vérifier l’interface du cercle connecté
+        run: npm run test:cloud
       - name: Conserver la version compilée
         uses: actions/upload-artifact@v4
         with:
           name: faune-web
           path: dist/
           retention-days: 7
+      - name: Conserver les résultats et captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: faune-verification
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+

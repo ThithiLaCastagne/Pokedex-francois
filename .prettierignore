@@ -1,0 +1,5 @@
+node_modules
+dist
+docs/previews
+package-lock.json
+supabase/migrations
